@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Base64 Encoder / Decoder{% endblock %}
+{% block desc %}Encode and decode Base64, UTF-8 safe, with a URL-safe option.{% endblock %}
+{% block h1 %}Base64 Encoder / Decoder{% endblock %}
+{% block lead %}UTF-8 safe. Tick URL-safe to use - and _ and drop the padding.{% endblock %}
+{% block body %}
+<form method="post">
+  <textarea name="text" spellcheck="false" placeholder="Text or Base64">{{ text }}</textarea>
+  <div class="row">
+    <button class="p" name="mode" value="encode">Encode</button>
+    <button name="mode" value="decode">Decode</button>
+    <label><input type="checkbox" name="urlsafe"{% if urlsafe %} checked{% endif %}> URL-safe</label>
+  </div>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>
+{% elif out is not none %}<p class="msg ok">{{ "Encoded" if mode == "encode" else "Decoded" }}</p><textarea readonly>{{ out }}</textarea>{% endif %}
+{% endblock %}

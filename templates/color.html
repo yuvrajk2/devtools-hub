@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Color Picker & Gradient Generator{% endblock %}
+{% block desc %}Convert HEX, RGB and HSL and build a CSS linear gradient.{% endblock %}
+{% block h1 %}Color Picker & Gradient Generator{% endblock %}
+{% block lead %}Convert HEX, RGB and HSL, and build a CSS linear gradient.{% endblock %}
+{% block body %}
+<form method="get">
+  <div class="grid">
+    <section>
+      <h2>Picker</h2>
+      <div class="row"><input type="text" name="hex" value="{{ hex }}" style="width:130px"></div>
+      {% if bad %}<p class="msg err">Not a valid hex color, showing the default.</p>{% endif %}
+      <div class="sw" style="background: {{ hex }}"></div>
+      {% for k, v in rows %}<div class="kv"><span>{{ k }}</span><span>{{ v }}</span></div>{% endfor %}
+    </section>
+    <section>
+      <h2>Gradient</h2>
+      <div class="row"><input type="color" name="c1" value="{{ c1 }}"><input type="color" name="c2" value="{{ c2 }}">
+        <label>Angle <input type="number" name="angle" value="{{ angle }}" min="0" max="360" style="width:80px"></label></div>
+      <div class="sw" style="{{ css }}"></div>
+      <pre>{{ css }}</pre>
+    </section>
+  </div>
+  <div class="row"><button class="p">Update</button></div>
+</form>
+{% endblock %}

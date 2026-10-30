@@ -1,0 +1,3 @@
+Flask>=3.0
+gunicorn>=22; sys_platform != "win32"
+segno>=1.6

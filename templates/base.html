@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %} | DevTools Hub</title>
+<meta name="description" content="{% block desc %}{% endblock %}">
+<link rel="icon" href="data:,">
+{% if ld %}<script type="application/ld+json">{{ ld|safe }}</script>
+{% endif %}<link rel="canonical" href="{{ site }}{{ request.path }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% block ogtitle %}{{ self.title() }}{% endblock %} | DevTools Hub">
+<meta property="og:description" content="{{ self.desc() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <a class="brand" href="/">devtools<span>/hub</span></a>
+    <nav>{% for slug, name in tools %}<a href="{{ url_for(slug) }}"{% if slug == active %} class="on"{% endif %}>{{ name }}</a>{% endfor %}</nav>
+    {% if sponsor[0] and sponsor[1] %}<p class="sponsor"><small>Sponsored</small><a href="{{ sponsor[1] }}" rel="sponsored noopener" target="_blank">{{ sponsor[0] }}</a></p>{% endif %}
+    <p class="foot">No JavaScript. Input is never stored.<br><a href="{{ url_for('api_docs') }}">API</a> &middot; <a href="{{ url_for('privacy') }}">Privacy</a></p>
+  </aside>
+  <main>
+    <h1>{% block h1 %}{% endblock %}</h1>
+    <p class="d">{% block lead %}{% endblock %}</p>
+    {% block body %}{% endblock %}
+    {% if content %}<section class="prose about"><h2>About this tool</h2><p>{{ content.about }}</p>
+    <h2>FAQ</h2>{% for q, a in content.faq %}<h3>{{ q }}</h3><p>{{ a }}</p>{% endfor %}</section>{% endif %}
+  </main>
+</div>
+</body>
+</html>

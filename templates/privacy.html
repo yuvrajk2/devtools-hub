@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Privacy{% endblock %}
+{% block desc %}What DevTools Hub does and does not do with your data.{% endblock %}
+{% block h1 %}Privacy{% endblock %}
+{% block lead %}Short version: we process what you paste, then forget it.{% endblock %}
+{% block body %}
+<div class="prose">
+<h2>Your input</h2>
+<p>Text you submit is processed in memory on the server to produce the result. The app does not store or log it. Your hosting provider may keep ordinary access logs, so avoid pasting production secrets, tokens or passwords into any online tool.</p>
+<h2>Usage counts</h2>
+<p>The app counts page views per day and per tool. It records no IP address, user agent or identifier.</p>
+<h2>Cookie</h2>
+<p>One cookie named <code>recent</code> remembers your last few tools so the home page can list them. It stays in your browser for 30 days. There are no advertising or tracking cookies.</p>
+<h2>Sponsors</h2>
+<p>Sponsor links, when present, are labelled and carry no tracking scripts.</p>
+</div>
+{% endblock %}

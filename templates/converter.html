@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block desc %}{{ info }}{% endblock %}
+{% block h1 %}{{ title }}{% endblock %}
+{% block lead %}{{ info }}{% endblock %}
+{% block body %}
+{% if tabs %}<div class="row">{% for slug, name in tabs %}<a class="btn{% if slug == cat %} on{% endif %}" href="{{ url_for('units_cat', cat=slug) }}">{{ name }}</a>{% endfor %}</div>{% endif %}
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}
+<form method="post">
+  <input type="hidden" name="s" value="{{ src }}">
+  <div class="conv">{% for k, label, val in rows %}<label class="{{ 'src' if k == src }}"><span>{{ label }}</span><input type="text" name="v-{{ k }}" value="{{ val }}" inputmode="decimal" autocomplete="off"><input type="hidden" name="p-{{ k }}" value="{{ val }}"></label>{% endfor %}</div>
+  <div class="row">
+    {% if show_also %}<label>Add currencies <input type="text" name="also" value="{{ also }}" placeholder="NPR, AED" style="width:180px"></label>{% endif %}
+    <button class="p">Convert</button><span class="msg">Edit any field, then press Enter. Every other field updates.</span>
+  </div>
+</form>
+{% endif %}
+{% if kind == 'currency' and updated %}<p class="msg">Rates as of {{ updated }}. {% if stale %}Showing the last known rates. {% endif %}Daily reference rates, not live market quotes. <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a></p>{% endif %}
+{% endblock %}

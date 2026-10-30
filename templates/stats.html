@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Stats{% endblock %}
+{% block desc %}Private usage stats.{% endblock %}
+{% block h1 %}Stats{% endblock %}
+{% block lead %}Anonymous page counts.{% endblock %}
+{% block body %}
+<div class="grid"><section><h2>By page</h2>{% for p, n in rows %}<div class="kv"><span>{{ p }}</span><span>{{ n }}</span></div>{% endfor %}</section>
+<section><h2>Last 14 days</h2>{% for d, n in daily %}<div class="kv"><span>{{ d }}</span><span>{{ n }}</span></div>{% endfor %}</section></div>
+{% endblock %}

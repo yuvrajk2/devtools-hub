@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Lorem Ipsum Generator{% endblock %}
+{% block desc %}Generate lorem ipsum placeholder paragraphs for layouts and mockups.{% endblock %}
+{% block h1 %}Lorem Ipsum Generator{% endblock %}
+{% block lead %}Placeholder paragraphs for layouts and mockups.{% endblock %}
+{% block body %}
+<form method="get" class="row"><label>Paragraphs <input type="number" name="paragraphs" value="{{ paragraphs }}" min="1" max="10" style="width:80px"></label><button class="p">Generate</button></form>
+<textarea readonly style="min-height:260px">{{ out }}</textarea>
+{% endblock %}

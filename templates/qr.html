@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}QR Code Generator{% endblock %}
+{% block desc %}Turn text or a URL into a QR code and download it as SVG.{% endblock %}
+{% block h1 %}QR Code Generator{% endblock %}
+{% block lead %}Turn text or a URL into a scannable code.{% endblock %}
+{% block body %}
+<form method="get">
+  <input type="text" name="text" value="{{ text }}">
+  <div class="row">
+    <label>Error correction
+      <select name="level" style="width:auto">{% for l in "LMQH" %}<option{% if l == level %} selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+    </label>
+    <button class="p">Generate</button>
+    {% if svg %}<a class="btn" href="{{ url_for('qr_download', text=text, level=level) }}">Download SVG</a>{% endif %}
+  </div>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if svg %}<div class="qr">{{ svg|safe }}</div>{% endif %}
+{% endblock %}

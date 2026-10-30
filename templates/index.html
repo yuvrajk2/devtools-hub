@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Free Online Developer Tools{% endblock %}
+{% block desc %}Free developer tools: JSON formatter, Base64, URL encoder, JWT decoder, hash generator, UUID, QR code, color converter, timestamp converter and text diff.{% endblock %}
+{% block h1 %}Developer tools{% endblock %}
+{% block lead %}Small, fast tools that do one thing. No sign-up, no JavaScript.{% endblock %}
+{% block body %}
+<form method="get" class="row"><input type="text" name="q" value="{{ q }}" placeholder="Search tools" style="max-width:320px"><button class="p">Search</button></form>
+{% if recent and not q %}<h2>Recent</h2><div class="row">{% for s, n in recent %}<a class="btn" href="{{ url_for(s) }}">{{ n }}</a>{% endfor %}</div>{% endif %}
+<h2>{{ "Results" if q else "All tools" }}</h2>
+{% if cards %}<div class="cards">{% for s, n, d in cards %}<a href="{{ url_for(s) }}"><b>{{ n }}</b><span>{{ d }}</span></a>{% endfor %}</div>
+{% else %}<p class="d">No tools match "{{ q }}".</p>{% endif %}
+{% endblock %}

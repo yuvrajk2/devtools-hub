@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ meta[0] }}{% endblock %}
+{% block desc %}{{ info }}{% endblock %}
+{% block h1 %}{{ meta[0] }}{% endblock %}
+{% block lead %}{{ info }}{% endblock %}
+{% block body %}
+<form method="post">
+  <textarea name="text" spellcheck="false" placeholder="{{ meta[1] }}">{{ text }}</textarea>
+  <div class="row">{% for v, l, p in meta[2] %}<button{% if p %} class="p"{% endif %} name="mode" value="{{ v }}">{{ l }}</button>{% endfor %}</div>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}{% for k, v in rows %}<div class="kv"><span>{{ k }}</span><span class="v">{{ v }}</span></div>{% endfor %}{% endif %}
+{% if out %}<textarea readonly>{{ out }}</textarea>{% endif %}
+{% endblock %}

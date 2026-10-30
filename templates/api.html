@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Free Developer Tools API{% endblock %}
+{% block desc %}A small free JSON API for formatting JSON, Base64, hashes and UUIDs.{% endblock %}
+{% block h1 %}API{% endblock %}
+{% block lead %}Free JSON endpoints. Limit: 60 requests per minute per client.{% endblock %}
+{% block body %}
+<div class="prose">
+<h2>JSON</h2>
+<pre>curl -X POST {{ request.url_root }}api/v1/json/format \
+  -H "Content-Type: application/json" \
+  -d '{"text": "{\"a\":1}"}'</pre>
+<p><code>POST /api/v1/json/format</code> and <code>/api/v1/json/minify</code></p>
+<h2>Base64</h2>
+<p><code>POST /api/v1/base64/encode</code> and <code>/decode</code>. Optional <code>"urlsafe": true</code> when encoding.</p>
+<h2>Hashes</h2>
+<p><code>POST /api/v1/hash</code> returns md5, sha1, sha256 and sha512.</p>
+<h2>UUID</h2>
+<p><code>GET /api/v1/uuid?count=5</code> returns up to 500 v4 UUIDs.</p>
+<h2>Responses</h2>
+<p>Success: <code>{"result": ...}</code>. Errors: <code>{"error": "..."}</code> with status 400, 422 or 429.</p>
+</div>
+{% endblock %}

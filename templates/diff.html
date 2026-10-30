@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Text Diff{% endblock %}
+{% block desc %}Compare two blocks of text and see added and removed lines.{% endblock %}
+{% block h1 %}Text Diff{% endblock %}
+{% block lead %}Paste two versions and compare them line by line.{% endblock %}
+{% block body %}
+<form method="post">
+  <div class="grid">
+    <textarea name="a" spellcheck="false" placeholder="Original">{{ a }}</textarea>
+    <textarea name="b" spellcheck="false" placeholder="Changed">{{ b }}</textarea>
+  </div>
+  <div class="row"><button class="p">Compare</button></div>
+</form>
+{% if lines %}<div class="diff">{% for kind, line in lines %}<div class="{{ kind }}">{{ line }}</div>{% endfor %}</div>{% endif %}
+{% endblock %}

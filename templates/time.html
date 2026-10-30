@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Timestamp Converter{% endblock %}
+{% block desc %}Convert Unix timestamps (seconds or milliseconds) and ISO 8601 dates.{% endblock %}
+{% block h1 %}Timestamp Converter{% endblock %}
+{% block lead %}Unix seconds or milliseconds, or an ISO date. Leave empty for the current time.{% endblock %}
+{% block body %}
+<form method="get" class="row"><input type="text" name="value" value="{{ value }}" placeholder="1700000000 or 2026-10-29T12:00:00Z" style="max-width:360px"><button class="p">Convert</button></form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}{% if showing_now %}<p class="msg">Current time (UTC)</p>{% endif %}{% for k, v in rows %}<div class="kv"><span>{{ k }}</span><span>{{ v }}</span></div>{% endfor %}{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}UUID Generator{% endblock %}
+{% block desc %}Generate random version 4 UUIDs in bulk.{% endblock %}
+{% block h1 %}UUID Generator{% endblock %}
+{% block lead %}Random v4 UUIDs, up to 500 at a time.{% endblock %}
+{% block body %}
+<form method="get" class="row">
+  <label>Count <input type="number" name="count" value="{{ count }}" min="1" max="500" style="width:90px"></label>
+  <label><input type="checkbox" name="upper"{% if upper %} checked{% endif %}> Uppercase</label>
+  <label><input type="checkbox" name="nodash"{% if nodash %} checked{% endif %}> No dashes</label>
+  <button class="p">Generate</button>
+</form>
+<pre>{{ ids }}</pre>
+{% endblock %}
