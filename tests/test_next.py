@@ -3,7 +3,8 @@ import html
 import json
 import unittest
 
-from app import RATE, app
+from app import app
+from core import RATE
 
 
 def unesc(r):

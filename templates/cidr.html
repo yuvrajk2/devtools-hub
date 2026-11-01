@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}CIDR / Subnet Calculator{% endblock %}
+{% block desc %}Subnet calculator for IPv4 and IPv6: network, mask, broadcast, host range and membership check.{% endblock %}
+{% block h1 %}CIDR / Subnet Calculator{% endblock %}
+{% block lead %}Network, netmask, broadcast and host range for any IPv4 or IPv6 network.{% endblock %}
+{% block body %}
+<form method="get" class="row">
+  <label>Network <input type="text" name="net" value="{{ net }}" placeholder="192.168.1.0/24" style="width:230px"></label>
+  <label>Contains IP? <input type="text" name="ip" value="{{ check }}" placeholder="optional" style="width:170px"></label>
+  <button class="p">Calculate</button>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}{% for k, v in rows %}<div class="kv"><span>{{ k }}</span><span>{{ v }}</span></div>{% endfor %}{% endif %}
+{% endblock %}

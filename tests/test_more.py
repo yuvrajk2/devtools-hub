@@ -1,8 +1,12 @@
 import html
 import unittest
 
-from app import RATE, SLUGS, app
+from flask import url_for
+
+from app import app
 from content import CONTENT
+from core import RATE
+from registry import SLUGS
 from tests.helpers import prime_rates
 
 
@@ -19,7 +23,9 @@ class More(unittest.TestCase):
         self.assertEqual(set(CONTENT), SLUGS)
         prime_rates()
         for s in SLUGS:
-            r = self.c.get(f"/{s}", follow_redirects=True)
+            with app.test_request_context():
+                path = url_for(s)
+            r = self.c.get(path, follow_redirects=True)
             self.assertEqual(r.status_code, 200, s)
             self.assertIn("About this tool", r.get_data(as_text=True), s)
 

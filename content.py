@@ -108,4 +108,65 @@ CONTENT = {
             ("What is the difference between MB and MiB?", "A megabyte (MB) is 1,000,000 bytes. A mebibyte (MiB) is 1,048,576 bytes (1024 squared). Operating systems and drive makers mix the two, which is why a disk can look smaller than advertised."),
         ],
     },
+    "cidr": {
+        "about": "Enter an IPv4 or IPv6 address with a prefix (192.168.1.0/24) or a netmask to see the network, mask, wildcard, broadcast, first and last host, and how many hosts fit. Optionally check whether another address falls inside the network.",
+        "faq": [
+            ("What does /24 mean?", "The prefix length is how many leading bits identify the network. A /24 leaves 8 bits for hosts, so 256 addresses, of which 254 are usable on IPv4."),
+            ("Why are two addresses not usable?", "On IPv4 subnets up to /30, the first address is the network address and the last is the broadcast address. /31 and /32 are special cases with no such reservation."),
+        ],
+    },
+    "regex": {
+        "about": "Test a regular expression against sample text, with matches highlighted and capture groups listed. Patterns run with Python's re engine in a separate sandboxed process with a 2 second limit, so a runaway pattern cannot hang the site.",
+        "faq": [
+            ("Which regex flavor is this?", "Python's re module. Most syntax matches JavaScript and PCRE, but features like lookbehind rules and named groups (?P<name>...) differ slightly between flavors."),
+            ("Why did my pattern time out?", "Nested quantifiers such as (a+)+$ can take exponential time on some inputs, called catastrophic backtracking. Make the pattern more specific or remove the nesting."),
+        ],
+    },
+    "cron": {
+        "about": "Paste a 5-field cron expression to see what each field means and when it runs next. Supports lists, ranges, steps, month and weekday names, and shortcuts like @daily. All times are UTC.",
+        "faq": [
+            ("What are the five cron fields?", "Minute, hour, day of month, month and day of week, in that order. A star means every value."),
+            ("What happens when both day fields are set?", "In classic cron, a job runs when either the day of month or the day of week matches, not both."),
+        ],
+    },
+    "pdf_merge": {
+        "about": 'Combine two or more PDF files into a single document. Pick the files in the order you want them joined. Files are processed in memory and never saved.',
+        "faq": [('Can I reorder the files?', 'Files are joined in the order you select them. To change the order, select them again in the order you want.'), ('Is there a size limit?', 'Uploads are limited to the size shown on the page, and the merged file can have up to 1,000 pages.')],
+    },
+    "pdf_split": {
+        "about": 'Split a PDF into several files by custom page ranges, one file per page, or every N pages. You get a ZIP containing the parts.',
+        "faq": [('How do I write page ranges?', 'Use commas between ranges: 1-3,4-6,7- makes three files. A trailing dash means to the end, and the word last means the final page.'), ('Can I split every page?', 'Yes. Choose every page as its own PDF and you get one file per page in a ZIP.')],
+    },
+    "pdf_extract": {
+        "about": 'Pull the pages you want out of a PDF into a new file. Pages come out in the order you type them, so this also reorders pages.',
+        "faq": [('Can I reorder pages?', 'Yes. Entering 3,1,2 produces a PDF with page 3 first, then page 1, then page 2.'), ('Can I reverse a range?', 'Yes. 5-1 runs backwards from page 5 to page 1.')],
+    },
+    "pdf_delete": {
+        "about": 'Remove unwanted pages from a PDF and download the rest. Enter single pages or ranges such as 2,4-6.',
+        "faq": [('Can I delete every page?', 'No. At least one page must remain.'), ('Does deleting pages change the rest of the document?', 'No. The remaining pages are copied as they are, in their original order.')],
+    },
+    "pdf_rotate": {
+        "about": 'Rotate every page, or only the pages you choose, by 90, 180 or 270 degrees clockwise.',
+        "faq": [('How do I rotate only some pages?', 'Type the pages, such as 2,4-6. Leave the box empty to rotate the whole document.'), ('Is the rotation permanent?', "The saved file displays the pages rotated. The page content is not altered, only the page's rotation setting.")],
+    },
+    "pdf_compress": {
+        "about": 'Make a PDF smaller. Lossless mode re-compresses page content and removes duplicate data without changing quality. Medium and strong modes also re-encode JPEG images at lower quality.',
+        "faq": [('How much smaller will it get?', 'It depends on the file. PDFs full of photos shrink the most. PDFs that are mostly text are often already compact, and in that case you get the original back.'), ('Is it lossless?', 'Only the lossless option. Medium and strong lower the quality of JPEG images to save space.')],
+    },
+    "pdf_protect": {
+        "about": 'Add a password to a PDF using AES-256 encryption, so it can only be opened with the password.',
+        "faq": [('How strong is the protection?', 'AES-256 is strong, but the password is the weak point. Use a long, unique one and store it in a password manager.'), ('Is the password stored?', 'No. It is used to encrypt the file in memory and then discarded.')],
+    },
+    "pdf_unlock": {
+        "about": 'Remove the password from a PDF you own, once you provide the correct password.',
+        "faq": [('Can this crack a forgotten password?', 'No. It only removes protection when you already know the password.'), ('Is it legal to unlock a PDF?', 'Only use it on files you own or have permission to unlock.')],
+    },
+    "img2pdf": {
+        "about": "Turn JPG, PNG, WebP and other images into a single PDF with one image per page, either at each image's own size or on A4 pages with margins.",
+        "faq": [('Which image formats work?', 'JPG, PNG, WebP, GIF, BMP and TIFF. Transparent areas become white.'), ('Will the photos be rotated correctly?', 'Yes. The orientation stored in a photo is applied before it is added to the PDF.')],
+    },
+    "pdf_info": {
+        "about": 'See how many pages a PDF has, its page size, version, whether it is password-protected, and its metadata such as title, author and creation date.',
+        "faq": [('Where does the metadata come from?', "From the PDF's own document information. Many files leave fields like author empty."), ('Is the file stored?', 'No. It is read in memory to produce this summary and then discarded.')],
+    },
 }

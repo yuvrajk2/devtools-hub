@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Cron Expression Explainer{% endblock %}
+{% block desc %}Explain a cron expression field by field and see its next run times in UTC.{% endblock %}
+{% block h1 %}Cron Expression Explainer{% endblock %}
+{% block lead %}Five fields: minute, hour, day of month, month, day of week. Times are UTC.{% endblock %}
+{% block body %}
+<form method="get" class="row"><input type="text" name="expr" value="{{ expr }}" style="max-width:320px" spellcheck="false"><button class="p">Explain</button></form>
+<div class="row">{% for e in ["*/5 * * * *", "0 9 * * 1-5", "30 2 1 * *", "@daily"] %}<a class="btn" href="{{ url_for('cron', expr=e) }}">{{ e }}</a>{% endfor %}</div>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}<h2>Fields</h2>{% for name, expr_part, vals in rows %}<div class="kv"><span>{{ name }} <b>{{ expr_part }}</b></span><span class="v">{{ vals }}</span></div>{% endfor %}{% endif %}
+{% if runs %}<h2 style="margin-top:16px">Next runs</h2>{% for r in runs %}<div class="kv"><span>{{ r }}</span></div>{% endfor %}{% endif %}
+{% endblock %}

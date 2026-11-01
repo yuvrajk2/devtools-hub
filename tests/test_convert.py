@@ -4,9 +4,10 @@ import json
 import unittest
 from unittest import mock
 
-import app as appmod
-from app import RATE, app
+from app import app
+from core import RATE
 from tests.helpers import prime_rates
+from tools import convert as appmod
 
 
 def body(r):
@@ -44,7 +45,7 @@ class Currency(unittest.TestCase):
         self.assertNotIn("v-XYZ", b)
 
     def test_unavailable(self):
-        with mock.patch("app.get_rates", return_value=None):
+        with mock.patch("tools.convert.get_rates", return_value=None):
             r = self.c.get("/currency")
         self.assertEqual(r.status_code, 503)
         self.assertIn("unavailable", body(r))
@@ -52,25 +53,25 @@ class Currency(unittest.TestCase):
     def test_fetch_success_and_stale_fallback(self):
         payload = {"result": "success", "time_last_update_utc": "now", "rates": {"USD": 1.1, "GBP": 0.9}}
         appmod._rates.update(at=0.0, retry=0.0, rates=None)
-        with mock.patch("app.urllib.request.urlopen", return_value=io.BytesIO(json.dumps(payload).encode())):
+        with mock.patch("urllib.request.urlopen", return_value=io.BytesIO(json.dumps(payload).encode())):
             r = appmod.get_rates()
         self.assertEqual(r["rates"]["EUR"], 1.0)
         self.assertEqual(r["rates"]["USD"], 1.1)
         self.assertFalse(r["stale"])
         appmod._rates.update(at=0.0, retry=0.0)  # expire the cache, then fail
-        with mock.patch("app.urllib.request.urlopen", side_effect=OSError):
+        with mock.patch("urllib.request.urlopen", side_effect=OSError):
             r = appmod.get_rates()
         self.assertTrue(r["stale"])
         self.assertEqual(r["rates"]["USD"], 1.1)  # old data kept
         appmod._rates.update(retry=0.0)
         appmod._rates.update(rates=None)
-        with mock.patch("app.urllib.request.urlopen", side_effect=OSError):
+        with mock.patch("urllib.request.urlopen", side_effect=OSError):
             self.assertIsNone(appmod.get_rates())
 
     def test_api_error_response_rejected(self):
         appmod._rates.update(at=0.0, retry=0.0, rates=None)
         bad = io.BytesIO(json.dumps({"result": "error", "error-type": "x"}).encode())
-        with mock.patch("app.urllib.request.urlopen", return_value=bad):
+        with mock.patch("urllib.request.urlopen", return_value=bad):
             self.assertIsNone(appmod.get_rates())
 
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Regex Tester{% endblock %}
+{% block desc %}Test regular expressions with match highlighting and capture groups, safely sandboxed.{% endblock %}
+{% block h1 %}Regex Tester{% endblock %}
+{% block lead %}Python regex with highlighted matches and capture groups. Runs sandboxed with a 2 second limit.{% endblock %}
+{% block body %}
+<form method="post">
+  <input type="text" name="pattern" value="{{ pattern }}" placeholder="Pattern, for example (\w+)@(\w+)\.com" spellcheck="false">
+  <div class="row">{% for f, label in [("i", "ignore case"), ("m", "multiline"), ("s", "dot matches newline"), ("x", "verbose")] %}<label><input type="checkbox" name="flags" value="{{ f }}"{% if f in flags %} checked{% endif %}> {{ label }}</label>{% endfor %}</div>
+  <textarea name="text" spellcheck="false" placeholder="Text to search">{{ text }}</textarea>
+  <div class="row"><button class="p">Test</button></div>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if matches is not none %}
+<p class="msg ok">{{ matches|length }} match{{ "" if matches|length == 1 else "es" }}{% if matches|length == 200 %} (showing the first 200){% endif %}</p>
+{% if segments %}<pre class="hl">{% for hit, s in segments %}{% if hit %}<mark>{{ s }}</mark>{% else %}{{ s }}{% endif %}{% endfor %}</pre>{% endif %}
+{% for m in matches %}<div class="kv"><span>#{{ loop.index }} [{{ m.span[0] }}-{{ m.span[1] }}]</span><span class="v">{{ m.text }}</span></div>
+{% for g in m.groups %}<div class="kv"><span>&nbsp;&nbsp;group {{ loop.index }}</span><span class="v">{{ g if g is not none else "(did not participate)" }}</span></div>{% endfor %}{% endfor %}
+{% endif %}
+{% endblock %}

@@ -17,7 +17,7 @@
 <div class="shell">
   <aside>
     <a class="brand" href="/">devtools<span>/hub</span></a>
-    <nav>{% for slug, name in tools %}<a href="{{ url_for(slug) }}"{% if slug == active %} class="on"{% endif %}>{{ name }}</a>{% endfor %}</nav>
+    <nav>{% for g, items in groups %}<h3>{{ g }}</h3>{% for slug, name in items %}<a href="{{ url_for(slug) }}"{% if slug == active %} class="on"{% endif %}>{{ name }}</a>{% endfor %}{% endfor %}</nav>
     {% if sponsor[0] and sponsor[1] %}<p class="sponsor"><small>Sponsored</small><a href="{{ sponsor[1] }}" rel="sponsored noopener" target="_blank">{{ sponsor[0] }}</a></p>{% endif %}
     <p class="foot">No JavaScript. Input is never stored.<br><a href="{{ url_for('api_docs') }}">API</a> &middot; <a href="{{ url_for('privacy') }}">Privacy</a></p>
   </aside>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ cfg.title }}{% endblock %}
+{% block desc %}{{ info }}{% endblock %}
+{% block h1 %}{{ cfg.title }}{% endblock %}
+{% block lead %}{{ info }} Files are processed in memory and never saved.{% endblock %}
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+  <label class="file">{{ cfg.label }}<input type="file" name="files" accept="{{ cfg.accept or '.pdf,application/pdf' }}"{% if cfg.multiple %} multiple{% endif %} required></label>
+  {% for f in cfg.fields %}<div class="row">
+  {% if f.kind == "radio" %}<span>{{ f.label }}</span>{% for v, l in f.options %}<label><input type="radio" name="{{ f.name }}" value="{{ v }}"{% if vals.get(f.name, f.default) == v %} checked{% endif %}> {{ l }}</label>{% endfor %}
+  {% elif f.kind == "select" %}<label>{{ f.label }} <select name="{{ f.name }}" style="width:auto">{% for v, l in f.options %}<option value="{{ v }}"{% if vals.get(f.name, f.default) == v %} selected{% endif %}>{{ l }}</option>{% endfor %}</select></label>
+  {% else %}<label style="flex:1">{{ f.label }} <input type="{{ f.kind }}" name="{{ f.name }}" value="{{ '' if f.kind == 'password' else vals.get(f.name, f.default or '') }}" placeholder="{{ f.placeholder or '' }}" autocomplete="off"></label>
+  {% endif %}</div>{% endfor %}
+  <div class="row"><button class="p">{{ cfg.button }}</button><span class="msg">Up to {{ max_mb }} MB per upload.</span></div>
+</form>
+{% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+{% if rows %}{% for k, v in rows %}<div class="kv"><span>{{ k }}</span><span class="v">{{ v }}</span></div>{% endfor %}{% endif %}
+{% endblock %}

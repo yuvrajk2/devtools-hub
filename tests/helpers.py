@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import app as appmod
+from tools import convert as appmod
 
 
 def prime_rates(rates=None):
